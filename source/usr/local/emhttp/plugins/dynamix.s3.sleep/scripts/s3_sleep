@@ -35,10 +35,11 @@
 # Version 3.0.5   HDD activity check includes both disk state and disk I/O activity
 # Version 3.0.6   Support for unRAID 6.4
 #                 Correction for Cache pool
+# Version 3.0.6.1 Remove hdparm activity check
 #
 # Bergware International
 ####################################################################################
-version=3.0.6
+version=3.0.6.1
 program=$(basename $0)
 ini=/var/local/emhttp/disks.ini
 
@@ -229,9 +230,7 @@ HDD_activity() {
     [[ -f /dev/shm/2 ]] && cp -f /dev/shm/2 /dev/shm/1 || touch /dev/shm/1
     awk '/(sd[a-z]*|nvme[0-9]n1) /{print $3,$6+$10}' /proc/diskstats >/dev/shm/2
     for dev in ${array[@]}; do
-      active=$(hdparm -C /dev/$dev 2>/dev/null|grep active)
-      diskio=($(grep -Pho "^$dev \K\d+" /dev/shm/1 /dev/shm/2))
-      if [[ -n $active || ${diskio[0]} != ${diskio[1]} ]]; then
+		if [[ -n $(diff /dev/shm/1 /dev/shm/2|grep -m1 "$dev ") ]]; then
         result=1
         break;
       fi

@@ -2,17 +2,21 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name "dynamix.s3.sleep">
 <!ENTITY author "darkside40">
-<!ENTITY version "2020.01.01">
+<!ENTITY version "2020.01.01a">
 <!ENTITY launch "Settings/SleepSettings">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/bjoerns1983/S3Sleep/master/unRAIDv6/&name;.plg">
 <!ENTITY source "/boot/config/plugins/&name;/&name;">
-<!ENTITY MD5 "3a9650745df2732f46b3dff9a4e227e4">
+<!ENTITY MD5 "634e5fb4933ba0473aa7dc6ae4aa5a9b">
 ]>
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="6.1.9" support="http://lime-technology.com/forum/index.php?topic=36543.0">
   <CHANGES>
 ##&name;
 
 ###&version;
+- codecleanup
+- new icon
+
+###2020.01.01
 - reverted back to version similiar 3.0.4 of the script
 
 ###2018.04.23
