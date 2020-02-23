@@ -2,7 +2,7 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name "dynamix.s3.sleep">
 <!ENTITY author "darkside40">
-<!ENTITY version "2020.01.01a">
+<!ENTITY version "2020.02.23">
 <!ENTITY launch "Settings/SleepSettings">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/bjoerns1983/S3Sleep/master/unRAIDv6/&name;.plg">
 <!ENTITY source "/boot/config/plugins/&name;/&name;">
@@ -13,13 +13,14 @@
 ##&name;
 
 ###&version;
-- codecleanup
-- new icon
-###2020.02.23
 - Upgraded Script to 3.0.7
 - Changed timer behavior
 - Change order of network activity check and ping check
 - THX to AcidRain@kodinerds.de
+
+###2020.01.01a
+- codecleanup
+- new icon
 
 ###2020.01.01
 - reverted back to version similiar 3.0.4 of the script
