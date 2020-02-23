@@ -36,10 +36,12 @@
 # Version 3.0.6   Support for unRAID 6.4
 #                 Correction for Cache pool
 # Version 3.0.6.1 Remove hdparm activity check
+# Version 3.0.7	  Changed timer behavior
+#				  Change order of network activity check and ping check
+#				  THX to AcidRain@kodinerds.de
 #
-# Bergware International
 ####################################################################################
-version=3.0.6.1
+version=3.0.7
 program=$(basename $0)
 ini=/var/local/emhttp/disks.ini
 
@@ -428,29 +430,33 @@ while [[ -f $lockfile ]]; do
   if [[ -z $(exclude_period) ]]; then
     if [[ -z $(HDD_activity) ]]; then
       log "All monitored HDDs are spun down"
-      if [[ $extraDelay -ge 0 ]]; then
-        log "Extra delay period running: $extraDelay minute(s)"
-        ((extraDelay--))
-      fi
-    else
-      log "Disk activity detected. Reset timers."
-      extraDelay=$delayInit
-    fi
-    if [[ $extraDelay -lt 0 ]]; then
       if [[ $start -eq 0 ]]; then
         log "Initialize TCP activity counter"
         start=$(txrx_bytes)
       else
         log "Check TCP/SSH/TTY/IP activity"
-        if [[ -z $(TCP_activity) && -z $(SSH_activity) && -z $(TTY_activity) && -z $(IP_activity) ]]; then
+        if [[ -z $(IP_activity) && -z $(SSH_activity) && -z $(TTY_activity) && -z $(TCP_activity) ]]; then
           log "Communication state is idle"
-          [[ $action == sleep ]] && system_sleep || system_down
-          log "System woken-up. Reset timers"
+          if [[ $extraDelay -ge 0 ]]; then
+            log "Extra delay period running: $extraDelay minute(s)"
+            ((extraDelay--))
+          fi
+        else
+          log "Communication activity detected. Reset timers."
           extraDelay=$delayInit
-          [[ $checkTCP == yes ]] && start=0 || start=-1
         fi
         [[ $start -gt 0 ]] && start=$(txrx_bytes)
       fi
+    else
+      log "Disk activity detected. Reset timers."
+      [[ $checkTCP == yes ]] && start=0 || start=-1
+      extraDelay=$delayInit
+    fi
+    if [[ $extraDelay -lt 0 ]]; then
+      [[ $action == sleep ]] && system_sleep || system_down
+      log "System woken-up. Reset timers"
+      extraDelay=$delayInit
+      [[ $checkTCP == yes ]] && start=0 || start=-1
     fi
   fi
   sleep 60

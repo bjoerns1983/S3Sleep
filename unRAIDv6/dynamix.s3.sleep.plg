@@ -6,7 +6,7 @@
 <!ENTITY launch "Settings/SleepSettings">
 <!ENTITY pluginURL "https://raw.githubusercontent.com/bjoerns1983/S3Sleep/master/unRAIDv6/&name;.plg">
 <!ENTITY source "/boot/config/plugins/&name;/&name;">
-<!ENTITY MD5 "634e5fb4933ba0473aa7dc6ae4aa5a9b">
+<!ENTITY MD5 "16f2e526fa343bb223c79ef67ae56f97">
 ]>
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="6.1.9" support="http://lime-technology.com/forum/index.php?topic=36543.0">
   <CHANGES>
@@ -15,6 +15,11 @@
 ###&version;
 - codecleanup
 - new icon
+###2020.02.23
+- Upgraded Script to 3.0.7
+- Changed timer behavior
+- Change order of network activity check and ping check
+- THX to AcidRain@kodinerds.de
 
 ###2020.01.01
 - reverted back to version similiar 3.0.4 of the script
