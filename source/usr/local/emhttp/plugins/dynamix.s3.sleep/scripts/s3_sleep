@@ -36,28 +36,30 @@
 # Version 3.0.6   Support for unRAID 6.4
 #                 Correction for Cache pool
 # Version 3.0.6.1 Remove hdparm activity check
-# Version 3.0.7   Changed timer behavior
-#                 Change order of network activity check and ping check
-#                 THX to AcidRain@kodinerds.de
+# Version 3.0.7	  Changed timer behavior
+#				  Change order of network activity check and ping check
+#				  THX to AcidRain@kodinerds.de
+# Version 3.0.8   Ported support for multi cache pool - added in Unraid 6.9
+#                 and correction for Cache pool
 #
 ####################################################################################
-version=3.0.7
+version=3.0.8
 program=$(basename $0)
 ini=/var/local/emhttp/disks.ini
 
 # Get flash device
 getFlash() {
-  flash=$(grep -A1 '^name="flash' $ini|sed -r '/^--/d;/^name=/d;s/"//g;s/^device=//')
+  flash=($(grep -PB10 '^type="Flash' $ini|grep -Po '^device="\K[^"]+'))
 }
 
 # Get list of cache devices (if present)
 getCache() {
-  cache=$(grep -A1 '^name="cache' $ini|sed -r '/^--/d;/^name=/d;s/"//g;s/^device=//')
+  cache=($(grep -PB10 '^type="Cache' $ini|grep -Po '^device="\K[^"]+'))
 }
 
 # Get list of array devices
 getArray() {
-  array=($(grep -PA1 '^name="(parity|disk)' $ini|sed -r '/^--/d;/^name=/d;s/"//g;s/^device=//'))
+  array=($(grep -PB10 '^type="(Parity|Data)' $ini|grep -Po '^device="\K[^"]+'))
 }
 
 # Get list of all devices
@@ -70,8 +72,8 @@ if [[ $1 == -ED ]]; then
   getFlash
   getCache
   getArray
-  array+=($flash);
-  [[ -n $cache ]] && array+=($cache)
+  array+=(${flash[@]});
+  [[ -n $cache ]] && array+=(${cache[@]})
   getDisks
   # Remove not excludable devices from list
   for dev in ${array[@]}; do
@@ -361,7 +363,7 @@ getFlash
 getCache
 getArray
 getDisks
-[[ $checkCache == yes ]] && array+=($cache)
+[[ $checkCache == yes ]] && array+=(${cache[@]})
 for dev in ${outside[@]}; do
   array+=($dev)
 done

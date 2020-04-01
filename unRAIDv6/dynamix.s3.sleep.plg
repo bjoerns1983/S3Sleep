@@ -1,18 +1,23 @@
 <?xml version="1.0" standalone="yes"?>
 <!DOCTYPE PLUGIN [
-<!ENTITY name "dynamix.s3.sleep">
-<!ENTITY author "darkside40">
-<!ENTITY version "2020.02.23">
-<!ENTITY launch "Settings/SleepSettings">
-<!ENTITY pluginURL "https://raw.githubusercontent.com/bjoerns1983/S3Sleep/master/unRAIDv6/&name;.plg">
-<!ENTITY source "/boot/config/plugins/&name;/&name;">
-<!ENTITY MD5 "16f2e526fa343bb223c79ef67ae56f97">
+<!ENTITY name		"dynamix.s3.sleep">
+<!ENTITY author		"darkside40">
+<!ENTITY version	"2020.04.01">
+<!ENTITY launch		"Settings/SleepSettings">
+<!ENTITY pluginURL	"https://raw.githubusercontent.com/bjoerns1983/S3Sleep/master/unRAIDv6/&name;.plg">
+<!ENTITY source		"/boot/config/plugins/&name;/&name;">
+<!ENTITY MD5 		"a3506367a95be9f353ee1171b7e87aaf">
 ]>
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="6.1.9" support="http://lime-technology.com/forum/index.php?topic=36543.0">
   <CHANGES>
 ##&name;
 
 ###&version;
+- Unraid 6.9 compability
+- Ported support for multi cache pool and correction for Cache pool
+- Multilanguage support
+
+###2020.02.23
 - Upgraded Script to 3.0.7
 - Changed timer behavior
 - Change order of network activity check and ping check
@@ -127,20 +132,20 @@
 ###2014.11.28
 - initial release for unRAID v6
 </CHANGES>
-  <!--
+<!--
 Copyright 2016, Bergware International
 Dynamix S3 Sleep - Manual and automatic sleep mode
 -->
-  <!-- PRE-INSTALL SCRIPT -->
-  <FILE Run="/bin/bash">
-    <INLINE>
+<!-- PRE-INSTALL SCRIPT -->
+<FILE Run="/bin/bash">
+<INLINE>
 cfg="/boot/config/plugins/dynamix/dynamix.cfg"
 
 add_key(){
   key=$(echo $2|cut -d'=' -f1)
   section=$(sed -n "/^\[$1\]/,/^\[/p" $cfg)
   if [[ -z $section ]]; then
-    echo -e "[$1]\n$2" &gt;&gt;$cfg
+    echo -e "[$1]\n$2" >>$cfg
   else
     if [[ $(echo $section|grep "$key="|wc -l) -eq 0 ]]; then
       sed -i "$(sed -n "/^\[$1\]/,/^\[/=" $cfg|tail -1) i $2" $cfg
@@ -153,35 +158,35 @@ if [[ -e $cfg ]]; then
   add_key 'confirm' 'sleep="1"'
   add_key 'display' 'sleep="plugins/&name;/Sleep.php"'
 else
-  echo -e "[confirm]\nsleep=\"1\"" &gt;$cfg
-  echo -e "[display]\nsleep=\"plugins/&name;/Sleep.php\"" &gt;&gt;$cfg
+  echo -e "[confirm]\nsleep=\"1\"" >$cfg
+  echo -e "[display]\nsleep=\"plugins/&name;/Sleep.php\"" >>$cfg
 fi
 
 # Stop service
-/usr/local/emhttp/plugins/&name;/scripts/rc.s3sleep stop 2&gt;/dev/null
+/usr/local/emhttp/plugins/&name;/scripts/rc.s3sleep stop 2>/dev/null
 
 # Remove old 'source' packages
-MD5=$(md5sum &source;.txz 2&gt;/dev/null|grep -Po '^\S+')
+MD5=$(md5sum &source;.txz 2>/dev/null|grep -Po '^\S+')
 if [[ $MD5 != &MD5; ]]; then
   rm -f &source;*.txz
 fi
 </INLINE>
-  </FILE>
-  <!-- SOURCE PACKAGE -->
-  <FILE Name="&source;.txz" Run="upgradepkg --install-new --reinstall">
-    <URL>https://raw.githubusercontent.com/bjoerns1983/S3Sleep/master/archive/&name;.txz</URL>
-    <MD5>&MD5;</MD5>
-  </FILE>
-  <!-- WORKAROUND -->
-  <FILE Name="/tmp/start_service" Mode="0770">
-    <INLINE>
+</FILE>
+<!-- SOURCE PACKAGE -->
+<FILE Name="&source;.txz" Run="upgradepkg --install-new --reinstall">
+<URL>https://raw.githubusercontent.com/bjoerns1983/S3Sleep/master/archive/&name;.txz</URL>
+<MD5>&MD5;</MD5>
+</FILE>
+<!-- WORKAROUND -->
+<FILE Name="/tmp/start_service" Mode="0770">
+<INLINE>
 #!/bin/bash
 /usr/local/emhttp/plugins/&name;/scripts/rc.s3sleep start
 </INLINE>
-  </FILE>
-  <!-- POST-INSTALL SCRIPT -->
-  <FILE Run="/bin/bash">
-    <INLINE>
+</FILE>
+<!-- POST-INSTALL SCRIPT -->
+<FILE Run="/bin/bash">
+<INLINE>
 cfg=&source;.cfg
 if [[ ! -e $cfg ]]; then
   cfg=/usr/local/emhttp/plugins/&name;/default.cfg
@@ -205,12 +210,12 @@ bash="#!/bin/bash\n"
 bin=/usr/local/emhttp/plugins/&name;/scripts
 preRun=$(grep -Po '^preRun="\K[^"]+' $cfg)
 if [[ -n $preRun ]]; then
-  echo "${bash}${preRun}"|urldecode &gt;$bin/preRun
+  echo "${bash}${preRun}"|urldecode >$bin/preRun
   chmod u+x $bin/preRun
 fi
 postRun=$(grep -Po '^postRun="\K[^"]+' $cfg)
 if [[ -n $postRun ]]; then
-  echo "${bash}${postRun}"|urldecode &gt;$bin/postRun
+  echo "${bash}${postRun}"|urldecode >$bin/postRun
   chmod u+x $bin/postRun
 fi
 
@@ -219,10 +224,10 @@ enable=$(grep -Po '^service="\K[^"]+' $cfg)
 conf=/etc/s3_sleep.conf
 if [[ $enable -eq 1 ]]; then
   if [[ ! -e $conf ]]; then
-    grep -Po '^options="\K.*' $cfg|sed -n 'G;s:"\n$::;p' &gt;$conf
+    grep -Po '^options="\K.*' $cfg|sed -n 'G;s:"\n$::;p' >$conf
   fi
   if [[ $(getkey mdState) == STARTED ]]; then
-    at -M -f /tmp/start_service now 2&gt;/dev/null
+    at -M -f /tmp/start_service now 2>/dev/null
   fi
 fi
 rm -f /tmp/start_service
@@ -239,10 +244,10 @@ echo " Version: &version;"
 echo "-----------------------------------------------------------"
 echo ""
 </INLINE>
-  </FILE>
-  <!-- REMOVE SCRIPT -->
-  <FILE Run="/bin/bash" Method="remove">
-    <INLINE>
+</FILE>
+<!-- REMOVE SCRIPT -->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
 # Delete sleep settings
 sed -i '/^sleep=/d' /boot/config/plugins/dynamix/dynamix.cfg
 
@@ -255,5 +260,5 @@ rm -rf /boot/config/plugins/&name;
 # Uninstall the 'source' package
 removepkg &name;
 </INLINE>
-  </FILE>
+</FILE>
 </PLUGIN>
