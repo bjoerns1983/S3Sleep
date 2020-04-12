@@ -13,6 +13,7 @@
 $plugin = 'dynamix.s3.sleep';
 $docroot = $docroot ?: $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
 $translations = file_exists("$docroot/webGui/include/Translations.php");
+require_once "$docroot/plugins/$plugin/include/Legacy.php";
 ?>
 <?if (!$translations):?>
 <?eval('?>'.parse_file("$docroot/plugins/$plugin/Sleep.php"))?>

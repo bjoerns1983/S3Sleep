@@ -170,33 +170,7 @@ _(Wait for array inactivity)_:
 > The Cache disk can be included or excluded in this setting, e.g. when the Cache disk is used continuously and never spins down.
 :end
 
-_(Device activity monitoring)_:
-: <select name="hdparm">
-  <?=mk_option($cfg['hdparm'], "", _("Status & counters"))?>
-  <?=mk_option($cfg['hdparm'], "-f 1", _("Status only"))?>
-  <?=mk_option($cfg['hdparm'], "-f 2", _("Counters only"))?>
-  </select>
 
-:help1005
-> *Status* monitors the hardware status of the device
->
-> *Counters* monitors the read/write counters of the device
-:end
-
-<?if ($outer):?>
-_(Monitor disks outside array)_:
-: <select id="s3" name="outside" style="display:none" multiple>
-  <?foreach (explode(' ',$outer) as $outside):?>
-  <?[$value, $text] = explode('=',$outside)?>
-  <?=mk_option_check($cfg['outside'], $value, $text)?>
-  <?endforeach;?>
-  </select>
-
-:help1006
-> If there any other disks present outside the array, then these can be monitored separately.
-:end
-
-<?endif;?>
 _(Extra delay after array inactivity)_:
 : <input type="text" name="timeout" maxlength="2" value="<?=$cfg['timeout']?>" class="narrow" placeholder="30">
 
