@@ -91,6 +91,8 @@ usage() {
  echo " -I disk     include outside of array disk (may be repeated for other disks)"
  echo " -n          wait for network inactivity"
  echo " -N idle     set TCP idle threshold"
+ echo " -p          CPU Load check"
+ echo " -P load     set min CPU Load"
  echo " -R          do DHCP renewal after wake-up"
  echo " -F          force gigabit speed after wake-up"
  echo " -S          sleep NOW"
@@ -132,6 +134,8 @@ skipHour=()           # only countdown towards sleep outside these hours
 checkTCP=no           # check for TCP activity
 eth=eth0              # interface to monitor TCP activity
 idle=0                # threshold of TCP activity in KB
+checkCPU=no           # check CPU load
+load=0                # threshold CPU load top notation
 checkSSH=no           # check for remote login sessions (telnet or SSH)
 checkTTY=no           # check for local login sessions (if "no" allows console debugging)
 hosts=()              # do not sleep when 'hosts' are pingable
@@ -151,13 +155,15 @@ quit_flag=no          # signal program exit
 sleepNow=no           # force immediate sleep now
 
 # options to overwrite defaults
-while getopts "acnN:i:I:d:h:m:t:e:C:w:RFqVSLlb:p:D:" opt; do
+while getopts "acnNpP:i:I:d:h:m:t:e:C:w:RFqVSLlb:p:D:" opt; do
   case $opt in
     a) checkHDD=yes ;;
     c) checkCache=no ;;
     I) outside+=($OPTARG) ;;
     n) checkTCP=yes ;;
     N) idle=$OPTARG ;;
+    p) checkCPU=yes ;;
+    P) load=$OPTARG ;;
     i) hosts+=($OPTARG) ;;
     d) skipDay+=($OPTARG) ;;
     h) skipHour+=($OPTARG) ;;
@@ -258,6 +264,18 @@ TCP_activity() {
   fi
   if [[ -n $result ]]; then
     log "Network activity on going: $(($delta*8)) b/s"
+    echo $result
+  fi
+}
+
+CPU_activity() {
+  result=
+  if [[ $checkCPU == yes ]]; then
+    AVARAGE_LOAD=$(LC_ALL=C /usr/bin/top -b -n 1 | /usr/bin/head -1 | /usr/bin/sed -E 's/.*load average: ([0-9.]+).*/\1/' | /usr/bin/sed 's/[.]//')
+    [[ $AVARAGE_LOAD -gt $load ]] && result=1
+  fi
+  if [[ -n $result ]]; then
+    log "CPU load too high: $load"
     echo $result
   fi
 }
@@ -437,7 +455,7 @@ while [[ -f $lockfile ]]; do
         start=$(txrx_bytes)
       else
         log "Check TCP/SSH/TTY/IP activity"
-        if [[ -z $(IP_activity) && -z $(SSH_activity) && -z $(TTY_activity) && -z $(TCP_activity) ]]; then
+        if [[ -z $(IP_activity) && -z $(SSH_activity) && -z $(TTY_activity) && -z $(TCP_activity) && -z $(CPU_activity) ]]; then
           log "Communication state is idle"
           if [[ $extraDelay -ge 0 ]]; then
             log "Extra delay period running: $extraDelay minute(s)"
