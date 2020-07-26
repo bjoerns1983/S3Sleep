@@ -85,7 +85,7 @@ fi
 
 usage() {
  echo
- echo "Usage: $program [-acnRFSLlVq] [-I disk] [-N idle] [-i ip] [-d day] [-h hour] [-m time] [-t time] [-e eth] [-w wol] [-b name] [-p name] [-C case] [-D 0-4] [-ED]"
+ echo "Usage: $program [-acnpRFSLlVq] [-I disk] [-N idle] [-P load] [-i ip] [-d day] [-h hour] [-m time] [-t time] [-e eth] [-w wol] [-b name] [-p name] [-C case] [-D 0-4] [-ED]"
  echo " -a          wait for array inactivity"
  echo " -c          exclude cache drive from array monitoring"
  echo " -I disk     include outside of array disk (may be repeated for other disks)"
