@@ -97,6 +97,10 @@ function changePort(form) {
   form.forceGb.disabled = disabled;
   form.dhcpRenew.disabled = disabled;
 }
+function changeLoad(form) {
+  var disabled = form.checkCPU.value=='';
+  form.load.disabled = disabled;
+}
 function logNote(note) {
   if (note==1 || note==3) {$("#note").show();} else {$("#note").hide();}
 }
@@ -210,6 +214,23 @@ _(Network idle threshold)_:
 
 :help1010
 > Network activity is measured under different thresholds. Ranging from completely silent to megabit traffic. Experiment with this setting to find to right balance for your situation.
+:end
+
+_(Wait for low CPU load)_:
+: <select name="checkCPU" onchange="changeLoad(this.form)">
+  <?=mk_option($cfg['checkCPU'], "", _("No"))?>
+  <?=mk_option($cfg['checkCPU'], "-p", _("Yes"))?>
+  </select>
+
+:help1019
+> Select whether CPU load must be under a certain value to enter sleep.
+:end
+
+_(Wait for low CPU load)_:
+: <input type="text" name="load" maxlength="3" value="<?=$cfg['load']?>" class="narrow" placeholder="_(no load)_">
+
+:help1020
+> Enter minimum Load according to top command as int. For example 0.50 load in top must be entered as 50.
 :end
 
 _(Wait for host inactivity)_ (_(IP address)_):
