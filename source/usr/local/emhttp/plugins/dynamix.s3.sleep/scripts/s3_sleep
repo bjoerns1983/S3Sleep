@@ -155,7 +155,7 @@ quit_flag=no          # signal program exit
 sleepNow=no           # force immediate sleep now
 
 # options to overwrite defaults
-while getopts "acnNpP:i:I:d:h:m:t:e:C:w:RFqVSLlb:p:D:" opt; do
+while getopts "acnNgG:i:I:d:h:m:t:e:C:w:RFqVSLlb:p:D:" opt; do
   case $opt in
     a) checkHDD=yes ;;
     c) checkCache=no ;;
