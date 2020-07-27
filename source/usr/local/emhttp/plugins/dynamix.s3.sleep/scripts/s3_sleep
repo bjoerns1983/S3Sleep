@@ -85,14 +85,14 @@ fi
 
 usage() {
  echo
- echo "Usage: $program [-acnpRFSLlVq] [-I disk] [-N idle] [-P load] [-i ip] [-d day] [-h hour] [-m time] [-t time] [-e eth] [-w wol] [-b name] [-p name] [-C case] [-D 0-4] [-ED]"
+ echo "Usage: $program [-acngRFSLlVq] [-I disk] [-N idle] [-G load] [-i ip] [-d day] [-h hour] [-m time] [-t time] [-e eth] [-w wol] [-b name] [-p name] [-C case] [-D 0-4] [-ED]"
  echo " -a          wait for array inactivity"
  echo " -c          exclude cache drive from array monitoring"
  echo " -I disk     include outside of array disk (may be repeated for other disks)"
  echo " -n          wait for network inactivity"
  echo " -N idle     set TCP idle threshold"
- echo " -p          CPU Load check"
- echo " -P load     set min CPU Load"
+ echo " -g          CPU Load check"
+ echo " -G load     set min CPU Load"
  echo " -R          do DHCP renewal after wake-up"
  echo " -F          force gigabit speed after wake-up"
  echo " -S          sleep NOW"
@@ -162,8 +162,8 @@ while getopts "acnNpP:i:I:d:h:m:t:e:C:w:RFqVSLlb:p:D:" opt; do
     I) outside+=($OPTARG) ;;
     n) checkTCP=yes ;;
     N) idle=$OPTARG ;;
-    p) checkCPU=yes ;;
-    P) load=$OPTARG ;;
+    g) checkCPU=yes ;;
+    G) load=$OPTARG ;;
     i) hosts+=($OPTARG) ;;
     d) skipDay+=($OPTARG) ;;
     h) skipHour+=($OPTARG) ;;
@@ -400,6 +400,7 @@ command-args=$*
 action mode=$action
 check disks status=$checkHDD
 check network activity=$checkTCP
+check CPU activity=$checkCPU
 check active devices=$devices
 check local login=$checkTTY
 check remote login=$checkSSH
