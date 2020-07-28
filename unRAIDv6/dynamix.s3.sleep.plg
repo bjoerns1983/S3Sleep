@@ -2,20 +2,17 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name		"dynamix.s3.sleep">
 <!ENTITY author		"darkside40">
-<!ENTITY version	"2020.07.28-dev-1">
+<!ENTITY version	"2020.04.12-beta">
 <!ENTITY launch		"Settings/SleepSettings">
-<!ENTITY pluginURL	"https://raw.githubusercontent.com/bjoerns1983/S3Sleep/dev/unRAIDv6/&name;.plg">
+<!ENTITY pluginURL	"https://raw.githubusercontent.com/bjoerns1983/S3Sleep/beta/unRAIDv6/&name;.plg">
 <!ENTITY source		"/boot/config/plugins/&name;/&name;">
-<!ENTITY MD5 		"2e5a509b95c93580abf13d398f2c542d">
+<!ENTITY MD5 		"8656a103bef9bfc1182bdad3bc257aa6">
 ]>
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="6.1.9" support="http://lime-technology.com/forum/index.php?topic=36543.0">
   <CHANGES>
 ##&name;
 
 ###&version;
-- CPU load check
-
-###2020.04.18
 - Fix Sleep.php error
 - Fix Settings page
 
