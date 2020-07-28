@@ -219,7 +219,7 @@ _(Network idle threshold)_:
 _(Wait for low CPU load)_:
 : <select name="checkCPU" onchange="changeLoad(this.form)">
   <?=mk_option($cfg['checkCPU'], "", _("No"))?>
-  <?=mk_option($cfg['checkCPU'], "-g", _("Yes"))?>
+  <?=mk_option($cfg['checkCPU'], "-p", _("Yes"))?>
   </select>
 
 :help1019
