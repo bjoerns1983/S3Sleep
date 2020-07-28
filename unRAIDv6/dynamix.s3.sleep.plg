@@ -4,7 +4,7 @@
 <!ENTITY author		"darkside40">
 <!ENTITY version	"2020.04.18">
 <!ENTITY launch		"Settings/SleepSettings">
-<!ENTITY pluginURL	"https://raw.githubusercontent.com/bjoerns1983/S3Sleep/beta/unRAIDv6/&name;.plg">
+<!ENTITY pluginURL	"https://raw.githubusercontent.com/bjoerns1983/S3Sleep/master/unRAIDv6/&name;.plg">
 <!ENTITY source		"/boot/config/plugins/&name;/&name;">
 <!ENTITY MD5 		"8656a103bef9bfc1182bdad3bc257aa6">
 ]>
