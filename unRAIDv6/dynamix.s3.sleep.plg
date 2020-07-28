@@ -6,7 +6,7 @@
 <!ENTITY launch		"Settings/SleepSettings">
 <!ENTITY pluginURL	"https://raw.githubusercontent.com/bjoerns1983/S3Sleep/dev/unRAIDv6/&name;.plg">
 <!ENTITY source		"/boot/config/plugins/&name;/&name;">
-<!ENTITY MD5 		"131318cfbe6095b875697e06ebc1e79b">
+<!ENTITY MD5 		"8f82b48d81713cdcebeb6206647be49a">
 ]>
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="6.1.9" support="http://lime-technology.com/forum/index.php?topic=36543.0">
   <CHANGES>
