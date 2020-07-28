@@ -120,7 +120,7 @@ $(function() {
 <input type="hidden" name="#file" value="<?=$plugin?>/<?=$plugin?>.cfg">
 <input type="hidden" name="#include" value="plugins/<?=$plugin?>/include/update.sleep.php">
 <input type="hidden" name="#config" value="<?=$config?>">
-<input type="hidden" name="#prefix" value="timeout=m&port=e&idle=N&load=G&pingIP=i&stopHour=h&stopDay=d&setWol=w&debug=D&outside=I">
+<input type="hidden" name="#prefix" value="timeout=m&port=e&idle=N&pingIP=i&stopHour=h&stopDay=d&setWol=w&debug=D&outside=I">
 <input type="hidden" name="#folder" value="<?=$scripts?>">
 <span class="bitstream" style="float:right;margin-right:12px"><?=exec("$scripts/s3_sleep -V")?></span>
 
