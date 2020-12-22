@@ -206,9 +206,10 @@ urldecode(){
 
 # get unRAID key
 getkey(){
-  if [[ -e /proc/mdcmd ]]; then
+  local mdcmd=/proc/mdstat
+  if [[ -e $mdcmd ]]; then
     local key=$1
-    grep -Po "^$key=\K.*" /proc/mdcmd
+    grep -Po "^$key=\K.*" $mdcmd
   fi
 }
 
