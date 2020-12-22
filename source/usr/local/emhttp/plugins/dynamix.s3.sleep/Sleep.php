@@ -12,6 +12,7 @@
 <?
 $plugin = 'dynamix.s3.sleep';
 $docroot = $docroot ?: $_SERVER['DOCUMENT_ROOT'] ?: '/usr/local/emhttp';
+$noscript = true;
 $translations = file_exists("$docroot/webGui/include/Translations.php");
 require_once "$docroot/plugins/$plugin/include/Legacy.php";
 ?>
@@ -39,7 +40,7 @@ function sleepS3() {
 <tr><td></td>
 <td><input type="button" value="Sleep" onclick="sleepS3()"></td>
 <td>_(<b>Sleep</b> will immediately put the server in sleep mode)_.<br>
-_(Make sure your server supports S3 sleep)_. _(Check this)_ <u><a href="http://lime-technology.com/wiki/index.php?title=Setup_Sleep_(S3)_and_Wake_on_Lan_(WOL)" target="_blank">_(wiki entry)_</a></u> _(for more information)_.<br>
+_(Make sure your server supports S3 sleep)_. _(Check this)_ <u><a href="http://lime-technology.com/wiki/index.php?title=Setup Sleep (S3) and Wake on Lan (WOL)" target="_blank">_(wiki entry)_</a></u> _(for more information)_.<br>
 </td></tr>
 </table>
 <?endif;?>
