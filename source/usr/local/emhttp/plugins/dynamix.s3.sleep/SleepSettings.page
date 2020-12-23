@@ -164,13 +164,6 @@ _(Wait for array inactivity)_:
 <?endif;?>
   </select>
 
-:s3sleep_inactivity_plug:
-> Select whether the array must be completely inactive (all disks are spun down) before sleep or shutdown can take place.
->
-> The Cache disk can be included or excluded in this setting, e.g. when the Cache disk is used continuously and never spins down.
-:end
-
-
 _(Extra delay after array inactivity)_:
 : <input type="text" name="timeout" maxlength="2" value="<?=$cfg['timeout']?>" class="narrow" placeholder="30">
 
