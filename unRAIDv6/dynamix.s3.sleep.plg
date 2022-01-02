@@ -3,11 +3,11 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name		"dynamix.s3.sleep">
 <!ENTITY author		"darkside40">
-<!ENTITY version	"2021.01.26">
+<!ENTITY version	"2022.01.02">
 <!ENTITY launch		"Settings/SleepSettings">
 <!ENTITY pluginURL	"https://raw.githubusercontent.com/bjoerns1983/S3Sleep/beta/unRAIDv6/&name;.plg">
 <!ENTITY source		"/boot/config/plugins/&name;/&name;">
-<!ENTITY MD5 		"ee9c5c95b9641e97a8168f6f7f52a18c">
+<!ENTITY MD5 		"4f31ad2c869eddd5300ee666d991e15f">
 ]>
 
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="6.1.9">
@@ -16,7 +16,11 @@
 ##&name;
 
 ###&version;
-- CAUTION BETA Version for unRaid 6.9!Iinstall only if you know ho to revert back manually
+- CAUTION BETA Version for unRaid 6.10! Install only if you know ho to revert back manually
+- Fixed empty included Drives list
+
+###26.01.21
+- CAUTION BETA Version for unRaid 6.9! Install only if you know ho to revert back manually
 - Fixed empty included Drives list
 
 ###23.12.20
