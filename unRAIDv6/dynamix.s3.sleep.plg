@@ -5,7 +5,7 @@
 <!ENTITY author		"darkside40">
 <!ENTITY version	"2022.01.03">
 <!ENTITY launch		"Settings/SleepSettings">
-<!ENTITY pluginURL	"https://raw.githubusercontent.com/bjoerns1983/S3Sleep/unraid610/unRAIDv6/&name;.plg">
+<!ENTITY pluginURL	"https://raw.githubusercontent.com/bjoerns1983/S3Sleep/beta/unRAIDv6/&name;.plg">
 <!ENTITY source		"/boot/config/plugins/&name;/&name;">
 <!ENTITY MD5 		"8e6939611891ea15173100598a321419">
 ]>
@@ -194,7 +194,7 @@ fi
 
 <!-- SOURCE PACKAGE -->
 <FILE Name="&source;.txz" Run="upgradepkg --install-new --reinstall">
-<URL>https://raw.githubusercontent.com/bjoerns1983/S3Sleep/unraid610/archive/&name;.txz</URL>
+<URL>https://raw.githubusercontent.com/bjoerns1983/S3Sleep/beta/archive/&name;.txz</URL>
 <MD5>&MD5;</MD5>
 </FILE>
 
