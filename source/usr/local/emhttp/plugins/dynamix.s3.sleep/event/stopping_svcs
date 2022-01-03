@@ -1,3 +1,0 @@
-#!/bin/bash
-plugin="dynamix.s3.sleep"
-/usr/local/emhttp/plugins/$plugin/scripts/rc.s3sleep stop >/dev/null
