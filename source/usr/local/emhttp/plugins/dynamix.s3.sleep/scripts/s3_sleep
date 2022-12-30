@@ -250,7 +250,7 @@ HDD_activity() {
 }
 
 txrx_bytes() {
-  echo $(awk "/$eth:/{print \$2+\$10}" /proc/net/dev)
+  echo $(awk "/ $eth:/{print \$2+\$10}" /proc/net/dev)
 }
 
 TCP_activity() {
