@@ -3,19 +3,22 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name		"dynamix.s3.sleep">
 <!ENTITY author		"darkside40">
-<!ENTITY version	"2022.01.03">
+<!ENTITY version	"2025.11.05">
 <!ENTITY launch		"Settings/SleepSettings">
 <!ENTITY pluginURL	"https://raw.githubusercontent.com/bjoerns1983/S3Sleep/master/unRAIDv6/&name;.plg">
 <!ENTITY source		"/boot/config/plugins/&name;/&name;">
-<!ENTITY MD5 		"8e6939611891ea15173100598a321419">
+<!ENTITY MD5 		"58107981c26e649f24f3f69704236ba2">
 ]>
 
-<PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="6.1.9">
+<PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="7.1.2">
 
   <CHANGES>
 ##&name;
 
 ###&version;
+- Fix for unRaid 7.1.2 / HDD Discovery failed
+
+###2022.01.03
 - Fix for unRaid 6.10
 
 ###26.01.21

@@ -1,0 +1,4 @@
+#!/bin/bash
+chmod -R 755 usr/
+mv ../archive/dynamix.s3.sleep.txz ../archive/dynamix.s3.sleep-old.txz
+tar -cJf ../archive/dynamix.s3.sleep.txz --owner=0 --group=0 usr/ && md5sum ../archive/dynamix.s3.sleep.txz 
