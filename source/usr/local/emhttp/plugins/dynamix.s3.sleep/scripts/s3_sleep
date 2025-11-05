@@ -43,27 +43,26 @@
 #                 and correction for Cache pool
 # Version 3.0.9   Fix for unRaid 6.9
 # Version 3.0.10  Fix for unRaid 6.10
-# Version 3.0.11  Fix for unRaid 7.1.2 / HDD Discovery  failed
 #
 #
 ####################################################################################
-version=3.0.11
+version=3.0.10
 program=$(basename $0)
 ini=/var/local/emhttp/disks.ini
 
 # Get flash device
 getFlash() {
-  flash=($(grep -PB22 '^type="Flash' $ini|grep -Po '^device="\K[^"]+'))
+  flash=($(grep -PB15 '^type="Flash' $ini|grep -Po '^device="\K[^"]+'))
 }
 
 # Get list of cache devices (if present)
 getCache() {
-  cache=($(grep -PB22 '^type="Cache' $ini|grep -Po '^device="\K[^"]+'))
+  cache=($(grep -PB15 '^type="Cache' $ini|grep -Po '^device="\K[^"]+'))
 }
 
 # Get list of array devices
 getArray() {
-  array=($(grep -PB22 '^type="(Parity|Data)' $ini|grep -Po '^device="\K[^"]+'))
+  array=($(grep -PB15 '^type="(Parity|Data)' $ini|grep -Po '^device="\K[^"]+'))
 }
 
 # Get list of all devices
