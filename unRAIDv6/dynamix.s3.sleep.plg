@@ -7,7 +7,7 @@
 <!ENTITY launch		"Settings/SleepSettings">
 <!ENTITY pluginURL	"https://raw.githubusercontent.com/bjoerns1983/S3Sleep/master/unRAIDv6/&name;.plg">
 <!ENTITY source		"/boot/config/plugins/&name;/&name;">
-<!ENTITY MD5 		"911bbb5a75576c72161a30aa6b7f3833">
+<!ENTITY MD5 		"515cb64d8121c9e1ed7b6cad5dd82f7a">
 ]>
 
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="7.1.2">
